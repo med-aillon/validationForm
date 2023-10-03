@@ -13,7 +13,89 @@
     />
   </head>
   <body>
-   
+    <div class="container">
+      <h2>Inscrivez-vous</h2>
+      <form>
+        <div class="input-group">
+          <label for="name">Nom d'utilisateur</label>
+          <div class="icone-input-container">
+            <input
+              type="text"
+              id="name"
+              autocomplete="off"
+              placeholder="3 caractères minimum"
+              maxlength="24"
+            />
+            <img
+              src="/ressources/check.svg"
+              alt="icone de validation"
+              class="icone-verif"
+            />
+          </div>
+          <span class="error-msg"
+            >Choisissez un pseudo contenant au moin 3 caractères</span
+          >
+        </div>
+        <div class="input-group">
+          <label for="email">Entrez votre email</label>
+          <div class="icone-input-container">
+            <input
+              type="text"
+              id="email"
+              autocomplete="off"
+              placeholder="votre email"
+            />
+            <img
+              src="/ressources/check.svg"
+              alt="icone de validation"
+              class="icone-verif"
+            />
+          </div>
+          <span class="error-msg">Entrez un email valide</span>
+        </div>
+        <div class="input-group">
+          <label for="password">Mot de passe</label>
+          <div class="icone-input-container">
+            <input
+              type="password"
+              id="password"
+              autocomplete="off"
+              placeholder="Votre mot de passe"
+            />
+            <img
+              src="/ressources/check.svg"
+              alt="icone de validation"
+              class="icone-verif"
+            />
+          </div>
+          <span class="password-info"
+            >Au moin un symbole, un chiffre ainsi que 6 caractères minimum</span
+          >
+          <div class="lines">
+            <div class="l1"><span>Faible</span></div>
+            <div class="l2"><span>Moyen</span></div>
+            <div class="l3"><span>Fort</span></div>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="confirm-password">Nom d'utilisateur</label>
+          <div class="icone-input-container">
+            <input
+              type="password"
+              id="confirm-password"
+              autocomplete="off"
+              placeholder="Confirmez le mot de passe"
+            />
+            <img
+              src="/ressources/check.svg"
+              alt="icone de validation"
+              class="icone-verif"
+            />
+          </div>
+        </div>
+        <button type="submit">Création du compte</button>
+      </form>
+    </div>
 
     <script src="app.js"></script>
   </body>
