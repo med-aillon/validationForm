@@ -84,5 +84,51 @@ function passwordValidation() {
   } else {
     showValidation({ index: 2, validation: true });
   }
-  console.log(validationResult);
+  passwordStrength();
+
+  if (validationIcons[3].style.display === "inline") {
+    confirmPassword();
+  }
+}
+
+const lines = document.querySelectorAll(".lines div");
+
+function passwordStrength() {
+  const passwordLenght = pswInput.value.length;
+
+  if (!passwordLenght) {
+    addLines(0);
+  } else if (passwordLenght > 9 && passwordVerification.symbol && passwordVerification.number) {
+    addLines(3);
+  } else if ((passwordLenght > 6 && passwordVerification.symbol) || passwordVerification.number) {
+    addLines(2);
+  } else {
+    addLines(1);
+  }
+
+  function addLines(numberOfLines) {
+    lines.forEach((el, index) => {
+      if (index < numberOfLines) {
+        el.style.display = "block";
+      } else {
+        el.style.display = "none";
+      }
+    });
+  }
+}
+
+const confirmInput = document.querySelector(".input-group:nth-child(4) input");
+
+confirmInput.addEventListener("blur", confirmPassword);
+confirmInput.addEventListener("input", confirmPassword);
+
+function confirmPassword() {
+  const confirmValue = confirmInput.value;
+  if (!confirmValue) {
+    validationIcons[3].style.display = "none";
+  } else if (confirmValue === passwordValue) {
+    showValidation({ index: 3, validation: true });
+  } else {
+    showValidation({ index: 3, validation: false });
+  }
 }
