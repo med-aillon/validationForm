@@ -1,6 +1,44 @@
 const validationIcons = document.querySelectorAll(".icone-verif");
 const validationTexts = document.querySelectorAll(".error-msg");
 
+const inputsValidity = {
+  username: false,
+  email: false,
+  password: false,
+  confirmationPassword: false,
+};
+
+const form = document.querySelector("form");
+const container = document.querySelector(".container");
+
+form.addEventListener("submit", handleForm);
+
+let isAnimating = false;
+function handleForm(e) {
+  e.preventDefault();
+
+  const keys = Object.keys(inputsValidity);
+  const failedInputs = keys.filter((key) => !inputsValidity[key]);
+
+  if (failedInputs.length && !isAnimating) {
+    isAnimating = true;
+    container.classList.add("shake");
+
+    setTimeout(() => {
+      container.classList.remove("shake");
+      isAnimating = false;
+    }, 400);
+
+    failedInputs.forEach((input) => {
+      const index = keys.indexOf(input);
+      showValidation({ index: index, validation: false });
+    });
+  } else {
+    alert("Donneés envoyées avec succés.");
+  }
+  console.log(failedInputs);
+}
+
 function showValidation({ index, validation }) {
   if (validation) {
     validationIcons[index].style.display = "inline";
@@ -20,8 +58,10 @@ userInput.addEventListener("input", userValidation);
 function userValidation() {
   if (userInput.value.length >= 3) {
     showValidation({ index: 0, validation: true });
+    inputsValidity.username = true;
   } else {
     showValidation({ index: 0, validation: false });
+    inputsValidity.username = false;
   }
 }
 
@@ -33,8 +73,10 @@ const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 function emailValidation() {
   if (regexEmail.test(emailInput.value)) {
     showValidation({ index: 1, validation: true });
+    inputsValidity.email = true;
   } else {
     showValidation({ index: 1, validation: false });
+    inputsValidity.email = false;
   }
 }
 
@@ -81,8 +123,10 @@ function passwordValidation() {
 
   if (validationResult !== 3) {
     showValidation({ index: 2, validation: false });
+    inputsValidity.password = false;
   } else {
     showValidation({ index: 2, validation: true });
+    inputsValidity.password = true;
   }
   passwordStrength();
 
@@ -124,11 +168,13 @@ confirmInput.addEventListener("input", confirmPassword);
 
 function confirmPassword() {
   const confirmValue = confirmInput.value;
-  if (!confirmValue) {
+  if (!confirmValue && !passwordValue) {
     validationIcons[3].style.display = "none";
-  } else if (confirmValue === passwordValue) {
-    showValidation({ index: 3, validation: true });
-  } else {
+  } else if (confirmValue !== passwordValue) {
     showValidation({ index: 3, validation: false });
+    inputsValidity.confirmationPassword = false;
+  } else {
+    showValidation({ index: 3, validation: true });
+    inputsValidity.confirmationPassword = true;
   }
 }

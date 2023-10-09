@@ -26,6 +26,17 @@ img {
   border-radius: 5px;
   border: 1px solid #ffffffc3;
 }
+.container.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  33% {
+    transform: translateX(-5px);
+  }
+  66% {
+    transform: translateX(5px);
+  }
+}
 
 h2 {
   font-size: 30px;
